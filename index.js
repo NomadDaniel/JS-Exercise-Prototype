@@ -84,16 +84,20 @@ Car.prototype.fill = function(gallons) {
   this.tank += gallons;
 }
 
-// Car.prototype.drive = function(distance) {
-//   this.odometer = this.odometer + distance;
-//   this.tank = this.odometer - this.tank; 
-//   this.milesPerGallon = this.odometer/this.tank;
-// }
-
 Car.prototype.drive = function(distance) {
-  this.odometer = this.odometer + distance;
-  return this.odometer;
-}
+  const totalTankDistance = this.tank * this.milesPerGallon;
+
+  if (totalTankDistance >= distance) {
+    this.odometer = this.odometer + distance; //This adds the distance to the odometer only if totalDistancePerTank is greater than distance
+    this.tank = this.tank - distance / this.milesPerGallon;  //This subtracts the gallons from the tank
+  } else {
+    this.odometer = this.odometer + totalTankDistance; //Opposite of condition so odometer only adds the totalTankDistance, can't add more, you're not moving
+    this.tank = 0//distance has exceeded totalTankDistance so this.tank gallns equals 0.
+    return `I ran out of fuel at ${this.odometer} miles!`
+  }
+ }
+
+
 
 
 /*
@@ -118,10 +122,10 @@ Baby.prototype.play = function() {
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Global/Window - where js lives, its huge, with no context this is where .this points
+  2. Implicit. Look to the left of the dot. Most common usage. 80% of the time.
+  3. New w constructors
+  4. Explicit w .call, .apply, .bind
 */
 
 
