@@ -74,9 +74,27 @@ Person(this.age)
         // Use math, distance, velocity.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+  this.tank = 0;
+  this.odometer = 0;
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
 }
+Car.prototype.fill = function(gallons) {
+  this.tank += gallons;
+}
+
+// Car.prototype.drive = function(distance) {
+//   this.odometer = this.odometer + distance;
+//   this.tank = this.odometer - this.tank; 
+//   this.milesPerGallon = this.odometer/this.tank;
+// }
+
+Car.prototype.drive = function(distance) {
+  this.odometer = this.odometer + distance;
+  return this.odometer;
+}
+
 
 /*
   TASK 3
