@@ -7,6 +7,9 @@
         + If a plane lands, its `isFlying` property is set to false.
 */
 
+
+// This is so cool...I'm excited to learn this stuff!
+
 // EXAMPLE SOLUTION CODE:
 function Airplane(name) {
   this.name = name;
