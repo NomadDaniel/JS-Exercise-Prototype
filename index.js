@@ -7,6 +7,8 @@
         + If a plane lands, its `isFlying` property is set to false.
 */
 
+
+// This is so cool...I'm excited to learn this stuff!
 // EXAMPLE SOLUTION CODE:
 function Airplane(name) {
   this.name = name;
@@ -38,11 +40,24 @@ Airplane.prototype.land = function () {
     - Give instances of Person a method `.toString()`:
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
-
-function Person() {
-
+function Person(name, age, stomach) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
 }
-
+Person.prototype.eat = function(someFood) {
+  if (this.stomach.length < 10) {
+    this.stomach.push(someFood)
+  }
+} 
+Person.prototype.poop = function() {
+  if (this.stomach = []) {
+  }
+}
+Person.prototype.toString = function() {
+  return `${this.name}, ${this.age}`;
+}
+Person(this.age)
 /*
   TASK 2
     - Write a Car constructor that initializes `model` and `milesPerGallon` from arguments.
@@ -55,11 +70,35 @@ function Person() {
         + Should cause the the `tank` to go down taking `milesPerGallon` into account.
     - STRETCH: A car which runs out of `fuel` while driving can't drive any more distance:
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
+
+        // Use math, distance, velocity.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+  this.tank = 0;
+  this.odometer = 0;
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
 }
+Car.prototype.fill = function(gallons) {
+  this.tank += gallons;
+}
+
+Car.prototype.drive = function(distance) {
+  const totalTankDistance = this.tank * this.milesPerGallon;
+
+  if (totalTankDistance >= distance) {
+    this.odometer = this.odometer + distance; //This adds the distance to the odometer only if totalDistancePerTank is greater than distance
+    this.tank = this.tank - distance / this.milesPerGallon;  //This subtracts the gallons from the tank
+  } else {
+    this.odometer = this.odometer + totalTankDistance; //Opposite of condition so odometer only adds the totalTankDistance, can't add more, you're not moving
+    this.tank = 0//distance has exceeded totalTankDistance so this.tank gallns equals 0.
+    return `I ran out of fuel at ${this.odometer} miles!`
+  }
+ }
+
+
+
 
 /*
   TASK 3
@@ -68,18 +107,25 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age)
+  this.favoriteToy = favoriteToy;
+}
 
+Baby.prototype = Object.create(Person.prototype)
+
+Baby.prototype.play = function() {
+  return `Playing with ${this.favoriteToy}`
 }
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Global/Window - where js lives, its huge, with no context this is where .this points
+  2. Implicit. Look to the left of the dot. Most common usage. 80% of the time.
+  3. New w constructors
+  4. Explicit w .call, .apply, .bind
 */
 
 
